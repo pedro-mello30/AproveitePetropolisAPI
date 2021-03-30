@@ -15,7 +15,7 @@ export class CategoriasController {
   }
 
   @Get(':id')
-  async getById(@Param('id') id: number): Promise<Categoria> {
+  async getById(@Param('id') id: string): Promise<Categoria> {
     return this.categoriaService.getById(id);
   }
 
@@ -25,13 +25,12 @@ export class CategoriasController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() categoria: Categoria){
-    categoria.id = id;
-    return this.categoriaService.update(categoria);
+  async update(@Param('id') id: string, @Body() categoria: Categoria){
+    return this.categoriaService.update(id, categoria);
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: number){
+  async delete(@Param('id') id: string){
     return this.categoriaService.delete(id);
   }
 

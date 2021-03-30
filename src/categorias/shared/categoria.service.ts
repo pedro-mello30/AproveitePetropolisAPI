@@ -1,53 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { Categoria } from './categoria';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class CategoriaService {
 
-  categorias: Categoria[] = [
-    {id: 1, nome: 'Todas'},
-    {id: 2, nome: 'Gastronomia'},
-    {id: 3, nome: 'Automotiva'},
-    {id: 4, nome: 'Todas'},
-    {id: 5, nome: 'Todas'},
-    {id: 6, nome: 'Todas'},
-    {id: 7, nome: 'Todas'},
-    {id: 8, nome: 'Todas'},
-    {id: 9, nome: 'Todas'},
-    {id: 10, nome: 'Todas'},
-  ];
+  constructor(@InjectModel('Categoria') private readonly categoriaModel: Model<Categoria>) { }
 
-  getAll(){
-    return this.categorias;
+  async getAll(){
+    return await this.categoriaModel.find().exec();
   }
 
-  getById(id: number){
-    const categoria = this.categorias.find((value) => value.id == id);
-    return categoria;
+  async getById(id: string){
+    return await this.categoriaModel.findById(id).exec();
   }
 
-  create(categoria: Categoria){
-  let lastId= 0;
-  if (this.categorias.length > 0){
-    lastId = this.categorias[this.categorias.length-1].id;
-  }
-  categoria.id = lastId + 1;
-  this.categorias.push(categoria);
-
-  return categoria;
+  async create(categoria: Categoria){
+    const createdCategoria = new this.categoriaModel(categoria);
+    return await createdCategoria.save();
   }
 
-  update(categoria: Categoria){
-    const oldCategoria = this.getById(categoria.id);
-    if (oldCategoria){
-      oldCategoria.nome = categoria.nome;
-    }
-    return oldCategoria;
+  async update(id: string, categoria: Categoria){
+    await this.categoriaModel.updateOne({_id: id}, categoria).exec();
+    return this.getById(id);
   }
 
-  delete(id: number){
-    const index = this.categorias.findIndex((value) => value.id);
-    this.categorias.splice(index, 1);
+  async delete(id: string){
+    return await this.categoriaModel.deleteOne({_id: id}).exec();
   }
 
 
