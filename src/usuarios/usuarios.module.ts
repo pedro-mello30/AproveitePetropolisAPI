@@ -10,5 +10,6 @@ import { UsuarioService } from './shared/usuario.service';
   ],
   controllers: [UsuariosController],
   providers: [UsuarioService],
+  exports: [UsuarioService]
 })
 export class UsuariosModule {}

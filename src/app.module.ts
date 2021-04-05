@@ -5,6 +5,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CategoriasModule } from './categorias/categorias.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { EstabelecimentosModule } from './estabelecimentos/estabelecimentos.module';
+import { SubcategoriasModule } from './subcategorias/subcategorias.module';
+import { CuponsModule } from './cupons/cupons.module';
+import { AuthModule } from './auth/auth.module';
 
 
 
@@ -14,6 +17,9 @@ import { EstabelecimentosModule } from './estabelecimentos/estabelecimentos.modu
     CategoriasModule,
     UsuariosModule,
     EstabelecimentosModule,
+    SubcategoriasModule,
+    CuponsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

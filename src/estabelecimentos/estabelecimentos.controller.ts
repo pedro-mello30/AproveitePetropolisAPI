@@ -24,8 +24,8 @@ export class EstabelecimentosController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() categoria: Estabelecimento){
-    return this.estabelecimentoService.update(id, categoria);
+  async update(@Param('id') id: string, @Body() estabelecimento: Estabelecimento){
+    return this.estabelecimentoService.update(id, estabelecimento);
   }
 
   @Delete(':id')

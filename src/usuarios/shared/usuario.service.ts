@@ -17,6 +17,10 @@ export class UsuarioService {
     return await this.usuariosModel.findById(id).exec();
   }
 
+  async getByEmail(email: string){
+    return await this.usuariosModel.findOne({email}).exec();
+  }
+
   async create(usuario: Usuario){
     const createdUsuario = new this.usuariosModel(usuario);
     return await createdUsuario.save();
