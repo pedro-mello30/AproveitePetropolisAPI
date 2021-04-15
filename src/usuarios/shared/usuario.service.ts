@@ -54,6 +54,15 @@ export class UsuarioService {
     })
   }
 
+  async createEstabelecimento(user: IUserRequest){
+    return this.create({
+      nome: user.nome,
+      email: user.email,
+      password: user.password,
+      type: UserTypeEnum.estabelecimento
+    })
+  }
+
   async createMembro(user: IUserRequest){
     return this.create({
       nome: user.nome,

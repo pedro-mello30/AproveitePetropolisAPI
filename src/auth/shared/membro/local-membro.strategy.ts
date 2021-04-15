@@ -6,24 +6,26 @@ import { UserTypeEnum } from '../../../usuarios/shared/user.type.enum';
 
 
 @Injectable()
-export class LocalAdminStrategy extends PassportStrategy(Strategy, 'local-admin'){
+export class LocalMembroStrategy extends PassportStrategy(Strategy,'local-membro'){
 
-  constructor(private authService: AuthService) {
+
+  constructor(
+    private authService: AuthService
+  ) {
     super({
       usernameField: 'email',
-      passwordField: 'password',
+      passwordField: 'password'
     });
   }
-
 
   async validate(email: string, password: string){
     const usuario = await this.authService.validateUser(email, password);
 
-
-    if(!usuario || usuario.type != UserTypeEnum.admin){
+    if(!usuario || usuario.type != UserTypeEnum.membro){
       throw new UnauthorizedException();
     }
+
     return usuario;
   }
-}
 
+}
