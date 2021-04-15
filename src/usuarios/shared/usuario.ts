@@ -6,4 +6,5 @@ export class Usuario extends Document{
   email: string;
   password: string;
   telefone: string;
+  type: number;
 }
