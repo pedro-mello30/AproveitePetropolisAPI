@@ -8,18 +8,30 @@ import { IJwtPayload } from './i-jwt-payload';
 @Injectable()
 export class AuthService {
 
+
+  userModel;
+
+
   constructor(
     private usuarioService: UsuarioService,
     private jwtService: JwtService,
     private cryptService: CryptService
   ) {
+    this.userModel = {
+      id: 'n320ty3ycrew',
+      nome: 'admin-user-api',
+      email: 'admin-user-api',
+      password: 'admin-user-api',
+      type: 0
+    };
   }
 
   async validateUser(userEmail: string, usuarioPassword: string) : Promise<IUserData>{
-    const usuario = await this.usuarioService.getByEmail(userEmail);
 
-    if (usuario && this.cryptService.compare(usuarioPassword, usuario.password)){
-      const { id, nome, email, type } = usuario;
+
+    // if (this.cryptService.compare(usuarioPassword, this.userModel.password) && userEmail == this.userModel.email){
+    if (usuarioPassword == this.userModel.password && userEmail == this.userModel.email){
+      const { id, nome, email, type } = this.userModel;
       return { id: id, nome, email, type};
       // return { id: usuario._id, usuario.nome, usuario.email, usuario.type};
       // return usuario;

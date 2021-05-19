@@ -3,18 +3,17 @@ import { UsuarioService } from './shared/usuario.service';
 import { Usuario } from './shared/usuario';
 import { JwtAdminAuthGuard } from '../auth/shared/admin/jwt-admin-auth.guard';
 
-
 @Controller('usuarios')
 export class UsuariosController {
 
   constructor(
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
   ) {}
 
 
   @UseGuards(JwtAdminAuthGuard)
   @Get()
-  async getAll() : Promise<Usuario[]> {
+  async getAll() : Promise<any> {
     return this.usuarioService.getAll();
   }
 

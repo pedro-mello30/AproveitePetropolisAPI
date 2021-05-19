@@ -7,17 +7,21 @@ import { IUserRequest } from './iuser.request';
 import { UserTypeEnum } from './user.type.enum';
 import { IUserModel } from './iuser.model';
 
+import { FirebaseAuthenticationService } from '@aginix/nestjs-firebase-admin';
+
 @Injectable()
 export class UsuarioService {
 
   constructor(
     @InjectModel('usuarios') private readonly usuariosModel : Model<Usuario>,
-    private cryptService: CryptService
+    private cryptService: CryptService,
+    private firebaseAuth: FirebaseAuthenticationService
   ) {
   }
 
   async getAll(){
-    return await this.usuariosModel.find().exec();
+    // return await this.usuariosModel.find().exec();
+    return await this.firebaseAuth.listUsers();
   }
 
   async getById(id: string){
